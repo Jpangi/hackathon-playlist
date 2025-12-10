@@ -16,10 +16,8 @@ const router = express.Router();
 //   }
 // }
 
-router.use(verifyToken);
-
 // Create playlist
-router.post("/", async (req, res) => {
+router.post("/create", async (req, res) => {
   try {
     req.body.author = req.user._id;
     const playlist = await Playlist.create(req.body);
@@ -51,7 +49,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // Update playlist
-router.put("/:id", async (req, res) => {
+router.put("/update/:id", async (req, res) => {
   try {
     const updated = await Playlist.findByIdAndUpdate(req.params.id, req.body, {
       new: true,

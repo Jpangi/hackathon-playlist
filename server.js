@@ -7,11 +7,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express(); // the express framework is in the app variable
 const userRoutes = require("./routes/userRoutes");
+const playlistRouter = require("./controllers/playlistController");
 // ===========================
 // ======== MIDDLEWARE =======
 // ===========================
 
 //middleware goes here
+app.use(express.json());
 app.use("/users", userRoutes);
 app.use("/playlists", playlistRouter);
 
