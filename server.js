@@ -6,12 +6,14 @@ dotenv.config(); //code that allows env variables
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express(); // the express framework is in the app variable
-
+const userRoutes = require("./routes/userRoutes");
 // ===========================
 // ======== MIDDLEWARE =======
 // ===========================
 
 //middleware goes here
+app.use("/users", userRoutes);
+app.use("/playlists", playlistRouter);
 
 // =========================== =======
 // ======== MONGOOSE CONNECTION =======
