@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/Users");
+require("dotenv").config();
 
 const SALT_LENGTH = 12;
 
@@ -46,7 +47,8 @@ const login = async (req, res) => {
     if (!user)
       return res.status(400).json({ message: "username does not exist" });
     //checks to see if password entered matches
-    const matchPassword = bcrypt.compareSync(password, username);
+    const matchPassword = bcrypt.compareSync(password, user.password);
+
     if (!matchPassword)
       return res.status(400).json({ message: "Incorrect Password" });
     //creates a token for user
