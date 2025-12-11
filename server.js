@@ -9,12 +9,14 @@ const app = express(); // the express framework is in the app variable
 const userRoutes = require("./routes/userRoutes");
 const songRoutes = require("./routes/songRoutes");
 const requireAuth = require("./middleware/requireAuth");
+const cors = require("cors");
 // ===========================
 // ======== MIDDLEWARE =======
 // ===========================
 
 //middleware goes here
 app.use(express.json());
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use("/users", userRoutes);
 app.use("/songs", requireAuth, songRoutes);
 
