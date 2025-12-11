@@ -1,5 +1,5 @@
 const express = require("express");
-const Song = require("../models/Song");
+const Song = require("../models/Songs");
 const router = express.Router();
 
 // Add a song
