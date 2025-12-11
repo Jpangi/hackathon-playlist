@@ -1,27 +1,32 @@
-const dotenv = require('dotenv');
-const express = require('express');
-const mongoose = require('mongoose');
-const logger = require('morgan');
-const cors = require('cors');
+// =======================
+// ======= IMPORTS =======
+// =======================
+const dotenv = require("dotenv");
+dotenv.config(); //code that allows env variables
+const express = require("express");
+const mongoose = require("mongoose");
+const app = express(); // the express framework is in the app variable
+const userRoutes = require("./routes/userRoutes");
+const playlistRouter = require("./controllers/playlistController");
+// ===========================
+// ======== MIDDLEWARE =======
+// ===========================
 
-const userRouter = require('./controllers/user.js');
-const playlistRouter = require('./controllers/playlists.js');
+//middleware goes here
+app.use(express.json());
+app.use("/users", userRoutes);
+app.use("/playlists", playlistRouter);
 
-dotenv.config();
-const app = express();
-
+// =========================== =======
+// ======== MONGOOSE CONNECTION =======
+// =========================== =======
 mongoose.connect(process.env.MONGODB_URI);
-mongoose.connection.on('connected', () => {
+mongoose.connection.on("connected", () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}`);
 });
 
-app.use(cors());
-app.use(express.json());
-app.use(logger('dev'));
-
-app.use('/users', userRouter);
-app.use('/playlists', playlistRouter);
+let PORT = process.env.PORT;
 
 app.listen(process.env.PORT, () => {
-  console.log(`Listening on port ${process.env.PORT}`);
+  console.log(`Listening on PORT ${PORT}`);
 });
